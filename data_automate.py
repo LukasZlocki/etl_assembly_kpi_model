@@ -20,7 +20,7 @@ def main():
     report_file_operation.save_raports_to_csv_file()
 
     # *****************************************************
-    # transform csv data set to daily raport
+    # transform csv data set to daily raport & save raport to csv file
     # *****************************************************
     csv_report_file = report.Report()
     dataset = csv_report_file.get_hourly_dataset_from_csv_file()
@@ -32,10 +32,6 @@ def main():
     daily_reports_path = "./temp/"
     daily_reports_list.save_daily_reports_to_file(daily_reports_path, daily_reports_file, daily_reports_list.get_daily_raports())
     
-
-
-
-
     '''
     # ******************************************************
     # Extract hourly output for each shift base on given day
@@ -53,7 +49,6 @@ def main():
         # Code cleanup (separate code)
 
     '''
-
 
 if __name__ == '__main__':
     main() 

@@ -30,8 +30,12 @@ class DailyReport:
             print(element)
 
     # SAVE daily raports to csv file
-    def save_daily_reports_to_file(self, file, path, dataset):
-        dataset.to_csv(path + file)
+    def save_daily_reports_to_file(self, path, file_name, dataset):
+        file = open(path+file_name, 'w+', newline ='')
+        # writing the data into the file
+        with file:   
+            write = csv.writer(file)
+            write.writerows(dataset)
 
 
     # Calcule report for one whole day. Return report table
