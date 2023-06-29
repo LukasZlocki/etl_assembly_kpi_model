@@ -32,25 +32,10 @@ def main():
     daily_reports_path = "./temp/"
     daily_reports_list.save_daily_reports_to_file(daily_reports_path, daily_reports_file, daily_reports_list.get_daily_raports())
     
-    # ********************************************************************************
-    # Extract hourly output for each shift base on given day & save raport to csv file
-    # ********************************************************************************
-    csv_hourly_report = report.Report()
-    hourly_dataset = csv_hourly_report.get_hourly_dataset_from_csv_file()
-    shift_raport = daily_shift_report.ShiftReport(hourly_dataset)
-    shift_1_rep =  shift_raport.calculate_shifts_raport_for_given_day_and_shift('2022-02-21', 1)
-    shift_2_rep =  shift_raport.calculate_shifts_raport_for_given_day_and_shift('2022-02-21', 2)
-    shift_3_rep =  shift_raport.calculate_shifts_raport_for_given_day_and_shift('2022-02-21', 3)
-
-    print(shift_1_rep )
-    print(shift_2_rep )
-    print(shift_3_rep )
-    # ToDo: Save shift raport to new csv file
-
-    # ********************************************************************************
+    # ***************************************************************************
     # Extract hourly output for each shift ( I, II, III) for given list of dates
     # Store raport in new csv file: db_shifts_raport.csv
-    # ********************************************************************************
+    # ***************************************************************************
     csv_dataset = report.Report()
     dataset = csv_dataset.get_hourly_dataset_from_csv_file()
     # extracting dates only from raport
@@ -75,17 +60,7 @@ def main():
     # ToDo: save the raport list to file 
 
 
-
-
-    # report_shift = daily_shift_report.ShiftReport(data) 
-    # date = '2023-05-25' # dates_list[5]
-    # data = report_shift.calculate_shifts_raport_for_given_day(date)
-    # print("Print three shifts raport for given date")
-    # print(data)
-
         # ToDo - plan:
-        # Extract raport for each shift (I, II, III) from given day
-        # EXtract raport for each shifts for given list of dates
         # Store calculated data in csv file
         # Code cleanup (separate code)
 
