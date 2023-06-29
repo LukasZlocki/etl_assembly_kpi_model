@@ -1,5 +1,6 @@
 # extracting data from database and transforming data to csv formats
 
+import datetime
 import pandas as pd
 import csv
 
@@ -22,6 +23,18 @@ class Report:
         # Storing clear raport list in this class field
         self.__hourly_target_raports = hourly_targets_data_sheet
     
+    # GET dates of raports only
+    def get_all_dates_from_report(self, dataset):
+        dates_list_of_dates = []
+        for element in dataset:
+            dates_list_of_dates.append(element[1])
+        #removing dupilcates
+        dates_no_duplicates = self.__remove_duplicates_dates(dates_list_of_dates)
+        # sorting dates ascending
+        # sorting not needed
+        return dates_no_duplicates
+
+
     # GET hourly report from csv file
     def get_hourly_dataset_from_csv_file(self):
         path_with_filename = self.__output_path + self.__hourly_raport_dataset_file
@@ -42,6 +55,15 @@ class Report:
     def load_hourly_targets_raports_from_csv_file(self, path, filename):
         self.__hourly_target_raports = pd.read_csv(path+filename)
         return self.__hourly_target_raports
+
+    def __remove_duplicates_dates(self, dates_set):
+        dates_no_duplicates_list = []
+        for element in dates_set:
+            if (element in dates_no_duplicates_list):
+                continue
+            else:
+                dates_no_duplicates_list.append(element)
+        return dates_no_duplicates_list
 
     # READ pure data from jedox file
     def __read_jedox_hourly_targets_sheet(self, path):
