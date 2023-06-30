@@ -6,7 +6,6 @@
 #   * stops raports basis on operator descriptions
 
 import report
-
 import daily_report
 import daily_shift_report
 
