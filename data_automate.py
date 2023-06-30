@@ -46,12 +46,11 @@ def main():
     # print extracted shits raports for each shift and each date
     for element in shift_reports_list:
         print(element)
-    # ToDo: save the raport list to file 
+    # Save the raport list to file 
+    shift_reports.save_shift_reports()
 
-
-        # ToDo - plan:
-        # Store calculated data in csv file
-        # Code cleanup (separate code)
+    # ToDo - plan:
+    # Code cleanup (separate code)
 
 
 
