@@ -4,6 +4,8 @@
 # ex.
 # ['0', '2022-02-21', '0600-0700', '40', '36']
 
+import csv
+
 class ShiftReport:
     def __init__(self, dataset):
         self.__dataset = dataset
@@ -15,6 +17,16 @@ class ShiftReport:
 
         # Shift Report list
         self.__shift_reports_list = []
+
+        self.__path = "./temp/"
+        self.__shift_reports_list_file = "ShiftReports.csv"
+
+    def save_shift_reports(self):
+        file = open(self.__path + self.__shift_reports_list_file, 'w+', newline ='')
+        # writing the data into the file
+        with file:   
+            write = csv.writer(file)
+            write.writerows(self.__shift_reports_list)
 
     # GET shit reports list
     def get_shift_reports_list(self):
