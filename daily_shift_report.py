@@ -7,10 +7,32 @@
 class ShiftReport:
     def __init__(self, dataset):
         self.__dataset = dataset
-    
+        
+        # Shift time frames
         self.__shift_I = ["0600-0700", "0700-0800", "0800-0900", "0900-1000", "1000-1100", "1100-1200", "1200-1300", "1300-1400"]
         self.__shift_II = ["1400-1500", "1500-1600", "1600-1700", "1700-1800", "1800-1900", "1900-2000", "2000-2100", "2100-2200"]
         self.__shift_III = ["2200-2300", "2300-0000", "0000-0100", "0100-0200", "0200-0300", "0300-0400", "0400-0500", "0500-0600"]
+
+        # Shift Report list
+        self.__shift_reports_list = []
+
+    # GET shit reports list
+    def get_shift_reports_list(self):
+        return self.__shift_reports_list
+
+    # Calculate shit raports base on list of dates
+    def calculate_shift_raports_for_given_list_of_dates(self, list_of_dates):
+        for date in list_of_dates:
+            shift_1_rep =  self.calculate_shifts_raport_for_given_day_and_shift(date, 1)
+            shift_2_rep =  self.calculate_shifts_raport_for_given_day_and_shift(date, 2)
+            shift_3_rep =  self.calculate_shifts_raport_for_given_day_and_shift(date, 3)
+            # add only if raport exist and exclude empty reports
+            if shift_1_rep:
+                self.__shift_reports_list.append(shift_1_rep)
+            if shift_2_rep:
+                self.__shift_reports_list.append(shift_2_rep)
+            if shift_3_rep:
+                self.__shift_reports_list.append(shift_3_rep)
 
     # Extract shifts in date given
     # Format [day, shift_number, output_planned, output real, oee]
@@ -33,6 +55,8 @@ class ShiftReport:
             percentage_result = round(real_output*100/planned_output,2)
         return percentage_result
 
+    # Extract report for given shift and given day
+    # Output format [date, shift_number, output_planned, output_real. oee]
     def extract_shift_hourly_targets_based_on_shift_hours_set(self, day, shift_hours_seter, shift_number):
         shift_raport = []
         shift_output_real = 0
