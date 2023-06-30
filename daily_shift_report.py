@@ -12,6 +12,26 @@ class ShiftReport:
         self.__shift_II = ["1400-1500", "1500-1600", "1600-1700", "1700-1800", "1800-1900", "1900-2000", "2000-2100", "2100-2200"]
         self.__shift_III = ["2200-2300", "2300-0000", "0000-0100", "0100-0200", "0200-0300", "0300-0400", "0400-0500", "0500-0600"]
 
+        self.__shift_reports_list = []
+
+    # GET shit reports list
+    def get_shift_reports_list(self):
+        return self.__shift_reports_list
+
+    # Calculate shit raports base on list of dates
+    def calculate_shift_raports_for_given_list_of_dates(self, list_of_dates):
+        for date in list_of_dates:
+            shift_1_rep =  self.calculate_shifts_raport_for_given_day_and_shift(date, 1)
+            shift_2_rep =  self.calculate_shifts_raport_for_given_day_and_shift(date, 2)
+            shift_3_rep =  self.calculate_shifts_raport_for_given_day_and_shift(date, 3)
+            # add only if raport exist and exclude empty reports
+            if shift_1_rep:
+                self.__shift_reports_list.append(shift_1_rep)
+            if shift_2_rep:
+                self.__shift_reports_list.append(shift_2_rep)
+            if shift_3_rep:
+                self.__shift_reports_list.append(shift_3_rep)
+
     # Extract shifts in date given
     # Format [day, shift_number, output_planned, output real, oee]
     def calculate_shifts_raport_for_given_day_and_shift(self, day, shift_number):
