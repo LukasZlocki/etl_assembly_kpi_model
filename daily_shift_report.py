@@ -5,6 +5,9 @@
 # ['0', '2022-02-21', '0600-0700', '40', '36']
 
 import csv
+import pandas as pd
+from pathlib import Path
+import os
 
 class ShiftReport:
     def __init__(self, dataset):
@@ -18,15 +21,31 @@ class ShiftReport:
         # Shift Report list
         self.__shift_reports_list = []
 
-        self.__path = "./temp/"
-        self.__shift_reports_list_file = "ShiftReports.csv"
+        self.__path = Path("./temp/")
+        self.__shift_reports_list_file = "ShiftReports"
+        self.__shift_reports_list_file_extension = "csv"
 
     def save_shift_reports(self):
-        file = open(self.__path + self.__shift_reports_list_file, 'w+', newline ='')
+        file = open(
+            os.path.join(
+            self.__path, self.__shift_reports_list_file + '.' + self.__shift_reports_list_file_extension)
+            , 'w', newline =''            
+        )
         # writing the data into the file
         with file:   
             write = csv.writer(file)
             write.writerows(self.__shift_reports_list)
+        # Saving test | test it later !!!!!
+        # self.__shift_reports_list.to_csv("./temp/testing2.csv")
+        # my_file = pd.DataFrame(self.__shift_reports_list)
+        # my_file.to_csv("./temp/testing.csv", index=False, header=False)
+        with open("./temp/testing.csv", 'a') as outcsv:   
+            #configure writer to write standard csv file
+            writer = csv.writer(outcsv, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+            writer.writerow(['aaa'])
+            for item in self.__shift_reports_list:
+                #Write item to outcsv
+                writer.writerow(item[0])
 
     # GET shit reports list
     def get_shift_reports_list(self):
