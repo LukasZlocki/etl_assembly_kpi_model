@@ -7,6 +7,7 @@
 import csv
 import pandas as pd
 from pathlib import Path
+import os
 
 class ShiftReport:
     def __init__(self, dataset):
@@ -21,10 +22,15 @@ class ShiftReport:
         self.__shift_reports_list = []
 
         self.__path = Path("./temp/")
-        self.__shift_reports_list_file = "ShiftReports.csv"
+        self.__shift_reports_list_file = "ShiftReports"
+        self.__shift_reports_list_file_extension = "csv"
 
     def save_shift_reports(self):
-        file = open(self.__path + self.__shift_reports_list_file, 'w', newline ='')
+        file = open(
+            os.path.join(
+            self.__path, self.__shift_reports_list_file + '.' + self.__shift_reports_list_file_extension)
+            , 'w', newline =''            
+        )
         # writing the data into the file
         with file:   
             write = csv.writer(file)
