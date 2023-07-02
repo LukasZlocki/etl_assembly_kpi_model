@@ -6,6 +6,7 @@
 
 import csv
 import pandas as pd
+from pathlib import Path
 
 class ShiftReport:
     def __init__(self, dataset):
@@ -19,7 +20,7 @@ class ShiftReport:
         # Shift Report list
         self.__shift_reports_list = []
 
-        self.__path = "./temp/"
+        self.__path = Path("./temp/")
         self.__shift_reports_list_file = "ShiftReports.csv"
 
     def save_shift_reports(self):

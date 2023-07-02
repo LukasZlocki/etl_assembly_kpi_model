@@ -3,21 +3,33 @@
 import datetime
 import pandas as pd
 import csv
+from pathlib import Path
+import os
 
 class Report:
     def __init__(self):
         self.__hourly_target_raports = []
 
-        self.__source_path = source_path = "./src/"
-        self.__output_path = output_path = "./temp/"
+        self.__source_path = source_path = Path("./src/")
+        self.__output_path = output_path = Path("./temp/")
 
-        self.__jedox_file_name = jedox_file_name = "jedox_new.xlsm"
-        self.__hourly_raport_dataset_file = hourly_raport_dataset_file = "hourly_raport_dataset.csv"
+        self.__jedox_file_name = jedox_file_name = "jedox_new"
+        self.__jedox_file_extension = "xlsm"
+        self.__hourly_raport_dataset_file = hourly_raport_dataset_file = "hourly_raport_dataset"
+        self.__hourly_raport_dataset_file_extension = "csv"
 
     # EXTRACT horly target raports list from jedox file
     def extract_hourly_target_raport_from_jedox_file(self):
         # Reading hourly target data sheet
-        hourly_targets_data_sheet = self.__read_jedox_hourly_targets_sheet(self.__source_path + self.__jedox_file_name)
+        hourly_targets_data_sheet = self.__read_jedox_hourly_targets_sheet(
+            os.path.join(
+                self.__source_path , 
+                self.__jedox_file_name 
+                + '.' + 
+                self.__jedox_file_extension
+            )
+        )
+
         # Removing hours, minutes from dates
         hourly_targets_data_sheet = self.__remove_hours_minutes_from_date(hourly_targets_data_sheet, "Date")
         # Storing clear raport list in this class field
@@ -37,7 +49,12 @@ class Report:
 
     # GET hourly report from csv file
     def get_hourly_dataset_from_csv_file(self):
-        path_with_filename = self.__output_path + self.__hourly_raport_dataset_file
+        path_with_filename = os.path.join(
+            self.__output_path,
+            self.__hourly_raport_dataset_file
+            + '.' +
+            self.__hourly_raport_dataset_file_extension
+        )
         with open(path_with_filename, "r") as file:
             reader_csv = csv.reader(file)
             list_of_csv = list(reader_csv)
@@ -49,7 +66,14 @@ class Report:
 
     # SAVE hourly targer raports list to csv file
     def save_raports_to_csv_file(self):
-        self.__hourly_target_raports.to_csv(self.__output_path + self.__hourly_raport_dataset_file)
+        self.__hourly_target_raports.to_csv(
+            os.path.join(
+                self.__output_path,
+                self.__hourly_raport_dataset_file
+                + '.' + 
+                self.__hourly_raport_dataset_file_extension
+            )
+        )
 
     # LOAD hourly target raports from csv file and store it in variable
     def load_hourly_targets_raports_from_csv_file(self, path, filename):
