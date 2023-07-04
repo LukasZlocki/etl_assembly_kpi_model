@@ -32,21 +32,17 @@ class ShiftReport:
             , 'w', newline =''            
         )
         # writing the data into the file
-        with file:   
-            write = csv.writer(file)
-            write.writerows(self.__shift_reports_list)
-        # Saving test | test it later !!!!!
-        # self.__shift_reports_list.to_csv("./temp/testing2.csv")
-        # my_file = pd.DataFrame(self.__shift_reports_list)
-        # my_file.to_csv("./temp/testing.csv", index=False, header=False)
-        with open("./temp/testing.csv", 'a') as outcsv:   
-            #configure writer to write standard csv file
-            writer = csv.writer(outcsv, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
-            writer.writerow(['aaa'])
-            for item in self.__shift_reports_list:
-                #Write item to outcsv
-                writer.writerow(item[0])
-
+        with open(os.path.join(
+                    self.__path, self.__shift_reports_list_file 
+                    + '.' + 
+                    self.__shift_reports_list_file_extension), 'a') as outcsv:   
+                    #configure writer to write standard csv file
+                    writer = csv.writer(outcsv, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+                    writer.writerow(['Date', 'Shift', 'Planned_Output', 'Real_Output', 'OEE'])
+                    for item in self.__shift_reports_list:
+                        #Write item to outcsv
+                        writer.writerow(item[0])
+                        
     # GET shit reports list
     def get_shift_reports_list(self):
         return self.__shift_reports_list
